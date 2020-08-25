@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 
 function createWindow() {
@@ -52,5 +52,75 @@ ipcMain.on("async-ipcmain", (event, args) => {
 
 ipcMain.on("sync-ipcmain", (event, args) => {
   console.log("sync-ipcmain", args);
-  event.returnValue = { msg: "oii ipcmain"};
+  event.returnValue = { msg: "oii ipcmain" };
+});
+
+ipcMain.on("dialog-1", (event, args) => {
+  dialog.showErrorBox("404", "file not found");
+});
+
+ipcMain.on("dialog-2", (event, args) => {
+  dialog.showMessageBox(
+    {
+      title: "Titulo",
+      message: "mensagem simples",
+      detail: "detalhamento da mensagem",
+      buttons: ["OK", "cancel", "teste 1"],
+    },
+    (response, checkboxChecked) => {
+      console.log(response);
+    },
+  );
+});
+
+ipcMain.on("dialog-3", (event, args) => {
+  dialog.showOpenDialog(
+    {
+      title: "Procurando arquivo html...",
+      buttonLabel: "arquivo HTML",
+      message: "mensagem",
+      properties: ["openFile", "multiSelections"],
+      filters: [
+        {
+          name: "All",
+          extensions: ["*"],
+        },
+        {
+          name: "Pagina da Web",
+          extensions: ["htm", "html"],
+        },
+      ],
+    },
+    (filePaths, bookmarks) => {
+      console.log(filePaths, bookmarks);
+    },
+  );
+});
+
+ipcMain.on("dialog-4", (event, args) => {
+  dialog.showSaveDialog(
+    {
+      title: "Salvando arquivo html",
+      message: "message",
+      buttonLabel: "Salvar HTML",
+      nameFieldLabel: "Nome Arquivo",
+      filters: [
+        {
+          name: "All",
+          extensions: ["*"],
+        },
+        {
+          name: "Texto",
+          extensions: ["txt"],
+        },
+        {
+          name: "Pagina da Web",
+          extensions: ["htm", "html"],
+        },
+      ],
+    },
+    (filename, bookmark) => {
+      console.log(filename);
+    },
+  );
 });
