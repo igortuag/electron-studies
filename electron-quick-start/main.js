@@ -1,5 +1,11 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  dialog,
+  globalShortcut,
+} = require("electron");
 const path = require("path");
 
 function createWindow() {
@@ -17,6 +23,17 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  globalShortcut.register("CmdOrCtrl+j", () => {
+    console.log(new Date().toISOString());
+  });
+
+  globalShortcut.register("Alt+j", () => {
+    dialog.showMessageBox({
+      title: "shortcut teste",
+      message: "ok",
+    });
+  });
 }
 
 // This method will be called when Electron has finished
