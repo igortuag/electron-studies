@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
 const data = require("./data");
+const templateGenerator = require("./template");
 
 let tray = null;
 app.on("ready", () => {
@@ -12,13 +13,12 @@ app.on("ready", () => {
     },
   });
   tray = new Tray(__dirname + "/app/img/icon-tray.png");
-  let trayMenu = Menu.buildFromTemplate([
-    { label: "Cursos" },
-    { label: "", type: "separator" },
-    { label: "Javascript", type: "radio" },
-  ]);
-
+  let template = templateGenerator.geraTrayTemplate();
+  console.log(template)
+  let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
+
+  data.pegaNomeDosCursos();
 
   mainWindow.loadURL(`${__dirname}/app/index.html`);
 });
