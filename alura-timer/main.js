@@ -1,6 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Tray } = require("electron");
 const data = require("./data");
 
+let tray = null;
 app.on("ready", () => {
   console.log("Application starts");
   let mainWindow = new BrowserWindow({
@@ -10,6 +11,7 @@ app.on("ready", () => {
       nodeIntegration: true,
     },
   });
+  tray = new Tray(__dirname + '/app/img/icon-tray.png');
 
   mainWindow.loadURL(`${__dirname}/app/index.html`);
 });
