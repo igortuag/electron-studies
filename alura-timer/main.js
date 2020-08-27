@@ -7,7 +7,7 @@ app.on("ready", () => {
     height: 400,
     webPreferences: {
       nodeIntegration: true,
-    }
+    },
   });
 
   mainWindow.loadURL(`${__dirname}/app/index.html`);
@@ -16,12 +16,18 @@ app.on("ready", () => {
 app.on("window-all-closed", () => {
   app.quit();
 });
+let sobreWindow = null;
+ipcMain.on("abrir-janela-sobre", () => {
+  if (sobreWindow == null) {
+    sobreWindow = new BrowserWindow({
+      width: 300,
+      height: 200,
+    });
 
-ipcMain.on('abrir-janela-sobre', () => {
-  let sobreWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
-  });
+    sobreWindow.on('closed', () => {
+      sobreWindow = null;
+    })
+  }
 
-  sobreWindow.loadURL(`file://${__dirname}/app/sobre.html`)
-})
+  sobreWindow.loadURL(`file://${__dirname}/app/sobre.html`);
+});
