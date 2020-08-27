@@ -20,7 +20,7 @@ module.exports = {
     };
 
     jsonfile
-      .writeFile(arquivoDoCurso, dados, {spaces: 2})
+      .writeFile(arquivoDoCurso, dados, { spaces: 2 })
       .then(() => {
         console.log("Tempo salvo com sucesso");
       })
@@ -38,5 +38,9 @@ module.exports = {
       .catch((err) => {
         console.log(err);
       });
+  },
+  pegaDados(curso) {
+    let arquivoDoCurso = __dirname + "/data/" + curso + ".json";
+    return jsonfile.readFile(arquivoDoCurso);
   },
 };
