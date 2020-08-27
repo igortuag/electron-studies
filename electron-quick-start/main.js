@@ -5,6 +5,8 @@ const {
   ipcMain,
   dialog,
   globalShortcut,
+  Menu,
+  MenuItem,
 } = require("electron");
 const path = require("path");
 
@@ -35,6 +37,39 @@ function createWindow() {
     });
   });
 }
+
+const menu = Menu.buildFromTemplate([
+  {
+    label: "teste",
+    sublabel: "SubLabel",
+  },
+  {
+    label: "Edit",
+    submenu: [
+      {
+        label: "desfazer",
+        role: "undo",
+      },
+      { type: "separator" },
+      { label: "cortar", role: "cut" },
+      { label: "copiar", role: "copy" },
+      { label: "colar", role: "paste" },
+    ],
+  },
+  {
+    label: "Visualizador",
+    submenu: [
+      {role: "reload"},
+      {role: "toggledevtools"},
+      {role: "resetzoom"},
+      {role: "zoomin"},
+      {role: "zoomout"},
+      {role: "togglefullscreen"},
+    ]
+  }
+]);
+
+Menu.setApplicationMenu(menu);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
