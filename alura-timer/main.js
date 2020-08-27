@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
+const { ipcRenderer } = require("electron/renderer");
 
 app.on("ready", () => {
   console.log("Application starts");
@@ -22,12 +23,21 @@ ipcMain.on("abrir-janela-sobre", () => {
     sobreWindow = new BrowserWindow({
       width: 300,
       height: 200,
+      alwaysOnTop: true,
+      frame: false,
+      webPreferences: {
+        nodeIntegration: true,
+      },
     });
 
-    sobreWindow.on('closed', () => {
+    sobreWindow.on("closed", () => {
       sobreWindow = null;
-    })
+    });
   }
 
   sobreWindow.loadURL(`file://${__dirname}/app/sobre.html`);
+});
+
+ipcMain.on("fechar-janela-sobre", () => {
+  sobreWindow.close();
 });
