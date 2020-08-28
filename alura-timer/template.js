@@ -57,6 +57,7 @@ module.exports = {
         submenu: [
           {
             role: "minimize",
+            accelerator: 'Alt+M'
           },
           {
             role: "close",
@@ -71,6 +72,7 @@ module.exports = {
             click: () => {
               ipcMain.emit("abrir-janela-sobre");
             },
+            accelerator: 'CommandOrControl+I'
           },
         ],
       },
