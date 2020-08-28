@@ -1,6 +1,6 @@
 const moment = require("moment");
 const { ipcRenderer } = require("electron");
-let segundos;
+let segundos = 0;
 let timer;
 let tempo;
 
@@ -9,7 +9,7 @@ module.exports = {
     tempo = moment.duration(el.textContent);
     segundos = tempo.asSeconds();
     clearInterval(timer);
-    
+
     timer = setInterval(() => {
       segundos++;
       el.textContent = this.segundosParaTempo(segundos);

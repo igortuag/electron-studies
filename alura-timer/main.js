@@ -28,7 +28,7 @@ app.on("ready", () => {
     mainWindow.send('atalho-iniciar-parar')
   })
 
-  mainWindow.openDevTools();
+  //mainWindow.openDevTools();
   mainWindow.loadURL(`${__dirname}/app/index.html`);
 });
 
