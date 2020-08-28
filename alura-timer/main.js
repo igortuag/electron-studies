@@ -46,8 +46,7 @@ app.on("ready", () => {
   let menuPrincipal = Menu.buildFromTemplate(templateMenu);
   Menu.setApplicationMenu(menuPrincipal);
 
-  data.pegaNomeDosCursos();
-
+  mainWindow.openDevTools();
   mainWindow.loadURL(`${__dirname}/app/index.html`);
 });
 
