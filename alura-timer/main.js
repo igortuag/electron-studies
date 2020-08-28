@@ -3,9 +3,10 @@ const data = require("./data");
 const templateGenerator = require("./template");
 
 let tray = null;
+let mainWindow = null;
 app.on("ready", () => {
   console.log("Application starts");
-  let mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 600,
     height: 400,
     webPreferences: {
@@ -54,4 +55,10 @@ ipcMain.on("fechar-janela-sobre", () => {
 ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
   console.log(`O curso ${curso} foi estudado por ${tempoEstudado}`);
   data.salvaDados(curso, tempoEstudado);
+});
+
+ipcMain.on("curso-adicionado", (event, novoCurso) => {
+  let novoTemplate = templateGenerator.adicionaCursoNoTray(novoCurso, mainWindow);
+  let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
+  tray.setContextMenu(novoTrayMenu);
 });
