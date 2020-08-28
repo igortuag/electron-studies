@@ -19,6 +19,33 @@ app.on("ready", () => {
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
 
+  let templateMenu = [
+    {
+      label: "Meu menu",
+      submenu: [
+        {
+          label: "Item 1",
+        },
+        {
+          label: "Item 2",
+        },
+      ],
+    },
+  ];
+  if (process.platform == "darwin") {
+    templateMenu.unshift({
+      label: app.getName(),
+      submenu: [
+        {
+          label: "Item 1",
+        },
+      ],
+    });
+  }
+
+  let menuPrincipal = Menu.buildFromTemplate(templateMenu);
+  Menu.setApplicationMenu(menuPrincipal);
+
   data.pegaNomeDosCursos();
 
   mainWindow.loadURL(`${__dirname}/app/index.html`);
@@ -58,7 +85,10 @@ ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
 });
 
 ipcMain.on("curso-adicionado", (event, novoCurso) => {
-  let novoTemplate = templateGenerator.adicionaCursoNoTray(novoCurso, mainWindow);
+  let novoTemplate = templateGenerator.adicionaCursoNoTray(
+    novoCurso,
+    mainWindow,
+  );
   let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
   tray.setContextMenu(novoTrayMenu);
 });
