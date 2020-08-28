@@ -13,8 +13,8 @@ app.on("ready", () => {
     },
   });
   tray = new Tray(__dirname + "/app/img/icon-tray.png");
-  let template = templateGenerator.geraTrayTemplate();
-  console.log(template)
+  let template = templateGenerator.geraTrayTemplate(mainWindow);
+  console.log(template);
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
 
