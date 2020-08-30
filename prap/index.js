@@ -1,7 +1,6 @@
-const electron = require("electron");
-
-const { app } = electron;
+const { app, BrowserWindow } = require("electron");
 
 app.on("ready", () => {
-  console.log("A aplicação Electron foi criada e esta pronta para interação");
+  const janelaPrincipal = new BrowserWindow({});
+  janelaPrincipal.loadURL(`file://${__dirname}/index.html`);
 });
