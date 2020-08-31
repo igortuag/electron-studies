@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Primeira aplicação</title>
-</head>
-<body>
-  <h1>Primeira aplicação</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Primeira aplicação</title>
+  </head>
+  <body>
+    <h1>Primeira aplicação</h1>
 
-  <form action="">
-    <div>
-      <input type="file" accept="image/*" />
-      <label>Selecione uma imagem</label>
-    </div>
-  </form>
-</body>
+    <form action="">
+      <div>
+        <input type="file" accept="image/*" />
+        <label>Selecione uma imagem</label>
+      </div>
+      <button type="submit">Mostrar dimensões</button>
+    </form>
+    <script>
+      document.querySelector("form").addEventListener("submit", (event) => {
+        // inibir o comportamento padrão de envio do formulário
+        event.preventDefault();
+        const file = document.querySelector('input').files[0];
+      });
+    </script>
+  </body>
 </html>
