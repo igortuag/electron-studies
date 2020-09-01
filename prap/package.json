@@ -9,6 +9,7 @@
   "author": "Igor Tuag",
   "license": "ISC",
   "dependencies": {
-    "electron": "^10.1.0"
+    "electron": "^10.1.0",
+    "image-size": "^0.8.3"
   }
 }
