@@ -23,6 +23,8 @@
         // inibir o comportamento padrão de envio do formulário
         event.preventDefault();
         const file = document.querySelector("input").files[0];
+        path = file.path
+        console.log(path)
         ipcRenderer.send("obterDimensoesDaImagem", path);
       });
     </script>
