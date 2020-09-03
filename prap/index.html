@@ -15,6 +15,7 @@
       </div>
       <button type="submit">Mostrar dimensões</button>
     </form>
+    <h1 id="result"></h1>
     <script>
       const electron = require("electron");
       const { ipcRenderer } = electron;
@@ -23,9 +24,15 @@
         // inibir o comportamento padrão de envio do formulário
         event.preventDefault();
         const file = document.querySelector("input").files[0];
-        path = file.path
-        console.log(path)
+        path = file.path;
+        console.log(path);
         ipcRenderer.send("obterDimensoesDaImagem", path);
+      });
+
+      ipcRenderer.on("dimensoesDaImagem", (event, dimensions) => {
+        document.querySelector(
+          "#result",
+        ).innerHTML = `Largura = ${dimensions.width} Altura=${dimensions.height}`;
       });
     </script>
   </body>
