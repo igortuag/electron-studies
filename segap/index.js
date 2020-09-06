@@ -20,6 +20,7 @@ const menuTemplate = [
       },
       {
         label: 'Sair da aplicação',
+        acelerrator: 'Alt+F4',
         click() {
           app.quit();
         }
