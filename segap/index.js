@@ -14,5 +14,10 @@ app.on("ready", () => {
 const menuTemplate = [
   {
     label: "Menu",
+    submenu: [
+      {
+        label: "Adicionar comentário",
+      },
+    ],
   },
 ];
