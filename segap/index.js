@@ -8,7 +8,7 @@ let commentWindow;
 app.on("ready", () => {
   mainWindow = new BrowserWindow({});
   mainWindow.loadURL(`file://${__dirname}/main.html`);
-  mainWindow.on('close', () => app.quit())
+  mainWindow.on("close", () => app.quit());
   const mainMenu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(mainMenu);
 });
@@ -17,9 +17,9 @@ function createCommentWindow() {
   commentWindow = new BrowserWindow({
     width: 500,
     height: 300,
-    title: "Novo comentário", 
+    title: "Novo comentário",
   });
-  commentWindow.loadURL(`file://${__dirname}/comment.html`)
+  commentWindow.loadURL(`file://${__dirname}/comment.html`);
 }
 
 const menuTemplate = [
@@ -30,7 +30,7 @@ const menuTemplate = [
         label: "Adicionar comentário",
         click() {
           createCommentWindow();
-        }
+        },
       },
       {
         label: "Sair da aplicação",
@@ -45,4 +45,20 @@ const menuTemplate = [
 
 if (process.platform === "darwin") {
   menuTemplate.unshift({});
+}
+
+if (process.env.NODE_ENV !== "production") {
+  menuTemplate.push({
+    label: "Dev",
+    submenu: [
+      {
+        label: "Debug",
+        accelerator:
+          process.platform === "win32" ? "Ctrl+Shift+I" : "Cmd+Alt+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        }
+      },
+    ],
+  });
 }
