@@ -65,6 +65,9 @@ if (process.env.NODE_ENV !== "production") {
     label: "Dev",
     submenu: [
       {
+        role: "reload",
+      },
+      {
         label: "Debug",
         accelerator:
           process.platform === "win32" ? "Ctrl+Shift+I" : "Cmd+Alt+I",
