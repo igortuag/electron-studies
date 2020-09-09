@@ -1,12 +1,16 @@
 const electron = require("electron");
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 let commentWindow;
 
 app.on("ready", () => {
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   mainWindow.loadURL(`file://${__dirname}/main.html`);
   mainWindow.on("close", () => app.quit());
   const mainMenu = Menu.buildFromTemplate(menuTemplate);
@@ -18,9 +22,18 @@ function createCommentWindow() {
     width: 500,
     height: 300,
     title: "Novo comentário",
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
   commentWindow.loadURL(`file://${__dirname}/comment.html`);
+  commentWindow.on(`closed`, () => (commentWindow = null));
 }
+
+ipcMain.on("addComment", (event, comment) => {
+  mainWindow.webContents.send("addComment", comment);
+  commentWindow.close();
+});
 
 const menuTemplate = [
   {
@@ -57,7 +70,7 @@ if (process.env.NODE_ENV !== "production") {
           process.platform === "win32" ? "Ctrl+Shift+I" : "Cmd+Alt+I",
         click(item, focusedWindow) {
           focusedWindow.toggleDevTools();
-        }
+        },
       },
     ],
   });
