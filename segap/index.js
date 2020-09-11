@@ -66,7 +66,7 @@ if (process.platform === "darwin") {
 }
 
 if (process.env.NODE_ENV !== "production") {
-  menuTemplate.push({
+  const devTemplate = {
     label: "Dev",
     submenu: [
       {
@@ -81,5 +81,9 @@ if (process.env.NODE_ENV !== "production") {
         },
       },
     ],
-  });
+  };
+  menuTemplate.push(devTemplate);
+  if (process.platform !== "darwin") {
+    commentMenu = Menu.buildFromTemplate([devTemplate]);
+  }
 }
