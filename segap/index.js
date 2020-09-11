@@ -4,6 +4,7 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 let commentWindow;
+let commentMenu = null; // não desejo um menu na janela
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
@@ -28,6 +29,10 @@ function createCommentWindow() {
   });
   commentWindow.loadURL(`file://${__dirname}/comment.html`);
   commentWindow.on(`closed`, () => (commentWindow = null));
+
+  if (process.platform !== "darwin") {
+    commentWindow.setMenu(commentMenu);
+  }
 }
 
 ipcMain.on("addComment", (event, comment) => {
