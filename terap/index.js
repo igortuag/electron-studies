@@ -1,5 +1,7 @@
 const electron = require("electron");
-const { app, Tray, Menu } = electron;
+const { app, Tray, Menu, BrowserWindow } = electron;
+
+let mainWindow;
 
 app.on("ready", () => {
   const tray = new Tray(`${__dirname}/robot.png`);
@@ -9,6 +11,14 @@ app.on("ready", () => {
   });
   const contextMenu = Menu.buildFromTemplate(menuTemplate);
   tray.setContextMenu(contextMenu);
+
+  mainWindow = new BrowserWindow({
+    height: 150,
+    width: 300,
+    frame: false,
+    resizable: false,
+  });
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 });
 
 const menuTemplate = [
