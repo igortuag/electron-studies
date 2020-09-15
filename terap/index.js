@@ -6,10 +6,20 @@ let mainWindow;
 app.on("ready", () => {
   const tray = new Tray(`${__dirname}/robot.png`);
   tray.setToolTip("Esta é uma aplicação Electron");
-  tray.on("click", () => {
+  tray.on("click", (event, bounds) => {
+    // coordenadas do ícone da bandeja
+    const { x, y } = bounds
+    // dimensões da janela (largura e altura)
+    const { width, height } = mainWindow.getBounds();
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
+      mainWindow.setBounds({
+        x: x >= 400 ? x - width / 2 : x,
+        y: y >= 300 ? y - height : y,
+        width,
+        height
+      });
       mainWindow.show();
     }
   });
