@@ -1,14 +1,15 @@
 const electron = require("electron");
+const ChronoTray = require("./app/chronotray");
 const { app, Tray, Menu, BrowserWindow } = electron;
 
 let mainWindow;
 
 app.on("ready", () => {
-  const tray = new Tray(`${__dirname}/robot.png`);
+  const tray = new ChronoTray(`${__dirname}/robot.png`);
   tray.setToolTip("Esta é uma aplicação Electron");
   tray.on("click", (event, bounds) => {
     // coordenadas do ícone da bandeja
-    const { x, y } = bounds
+    const { x, y } = bounds;
     // dimensões da janela (largura e altura)
     const { width, height } = mainWindow.getBounds();
     if (mainWindow.isVisible()) {
@@ -18,7 +19,7 @@ app.on("ready", () => {
         x: x >= 400 ? x - width / 2 : x,
         y: y >= 300 ? y - height : y,
         width,
-        height
+        height,
       });
       mainWindow.show();
     }
