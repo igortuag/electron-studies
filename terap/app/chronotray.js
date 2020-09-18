@@ -1,11 +1,22 @@
 const electron = require("electron");
-const { Tray } = electron;
+const { Tray, app, Menu } = electron;
+
+const contextMenu = Menu.buildFromTemplate([
+  {
+    label: "Sair",
+    click: () => {
+      app.quit();
+    },
+  },
+]);
 
 class ChronoTray extends Tray {
   constructor(iconPath, mainWindow) {
     super(iconPath); // aqui, estou chamando o construtor do Tray
     this.mainWindow = mainWindow;
     this.on("click", this.onClick.bind(this));
+    this.setToolTip("Esta é uma aplicação Electron");
+    this.setContextMenu(contextMenu);
   }
 
   onClick(event, bounds) {
