@@ -14,6 +14,8 @@ app.on("ready", () => {
   });
 
   const tray = new ChronoTray(`${__dirname}/robot.png`, mainWindow);
-
   mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.on("blur", () => {
+    setTimeout(() => mainWindow.hide());
+  });
 });

@@ -14,7 +14,9 @@ class ChronoTray extends Tray {
   constructor(iconPath, mainWindow) {
     super(iconPath); // aqui, estou chamando o construtor do Tray
     this.mainWindow = mainWindow;
-    this.on("click", this.onClick.bind(this));
+    this.on("click", () => {
+      this.onClick();
+    });
     this.setToolTip("Esta é uma aplicação Electron");
     this.setContextMenu(contextMenu);
   }
