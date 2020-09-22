@@ -11,6 +11,7 @@ app.on("ready", () => {
     frame: false,
     resizable: false,
     show: false,
+    skipTaskbar: true,
   });
 
   const tray = new ChronoTray(`${__dirname}/robot.png`, mainWindow);
