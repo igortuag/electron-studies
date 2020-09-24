@@ -30,7 +30,7 @@ class ChronoTray extends Tray {
       this.mainWindow.hide();
     } else {
       this.mainWindow.setBounds({
-        x: x >= 400 ? x - width / 2 : x,
+        x: x >= 400 ? x - Math.floor(width / 2) : x,
         y: y >= 300 ? y - height : y,
         width,
         height,

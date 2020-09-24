@@ -7,8 +7,8 @@ let tray;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
-    height: 150,
-    width: 300,
+    height: 160,
+    width: 350,
     frame: false,
     resizable: false,
     show: false,
