@@ -7,6 +7,9 @@ let tray;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
     height: 160,
     width: 350,
     frame: false,
