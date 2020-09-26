@@ -25,25 +25,32 @@
     const electron = require("electron");
     const { ipcRenderer } = require("electron");
 
+    let timeUpdate;
+    let target25 = new Timer();
+
     document
       .querySelector("#chronoExample .startButton")
       .addEventListener("click", function () {
         timer.start();
+        target25.start({ precision: "seconds", target: { second: 25 } });
       });
     document
       .querySelector("#chronoExample .pauseButton")
       .addEventListener("click", function () {
         timer.pause();
+        target25.pause();
       });
     document
       .querySelector("#chronoExample .stopButton")
       .addEventListener("click", function () {
         timer.stop();
+        target25.stop();
       });
     document
       .querySelector("#chronoExample .resetButton")
       .addEventListener("click", function () {
         timer.reset();
+        target25.reset();
       });
     timer.addEventListener("secondsUpdated", function (e) {
       timeUpdate = timer.getTimeValues().toString();
@@ -59,6 +66,13 @@
       timeUpdate = timer.getTimeValues().toString();
       document.querySelector("#chronoExample .values").innerHTML = timeUpdate;
       ipcRenderer.send("timeUpdate", timeUpdate);
+    });
+
+    target25.addEventListener("targetAchieved", (e) => {
+      let myNotification = new Notification("Cronômetro", {
+        body: "25 segundos!",
+      });
+      target25.start({ precision: "seconds", target: { seconds: 25 } });
     });
   </script>
   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
